@@ -2,6 +2,7 @@ package com.example.live;
 
 import android.app.Activity;
 import android.content.res.Configuration;
+import android.hardware.Camera;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -92,6 +93,10 @@ public class CameraActivity extends Activity implements SrsEncodeHandler.SrsEnco
                 break;
             //切换摄像头
             case R.id.swCam:
+                mPublisher.switchCameraFace((mPublisher.getCamraId()+1)% Camera.getNumberOfCameras());
+                break;
+            //切换编码方式
+            case R.id.swEnc:
                 if(mEncoderBtn.getText().toString().contentEquals("软编码")){
                     mPublisher.switchToSoftEncoder();
                     mEncoderBtn.setText("硬编码");
@@ -156,7 +161,7 @@ public class CameraActivity extends Activity implements SrsEncodeHandler.SrsEnco
             mPublisher.stopRecord();
             mPublishBtn.setText("开始");
         }catch (Exception e1){
-            e1.printStackTrace();
+
         }
     }
 
